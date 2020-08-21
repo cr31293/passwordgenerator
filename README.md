@@ -1,48 +1,18 @@
-# 03 JavaScript: Password Generator
+# 03 JavaScript: Password Generator#
 
-Create an application that generates a random password based on user-selected criteria. This app will run in the browser and feature dynamically updated HTML and CSS powered by your JavaScript code. It will also feature a clean and polished user interface and be responsive, ensuring that it adapts to multiple screen sizes.
+ Application that generates a random password based on user-selected criteria. This app runs in the browser and features dynamically updated HTML and CSS powered by JavaScript code. This application includes choices for password length and whether to consider numbers, special characters, and letter case when generating a password.
 
-If you are unfamiliar with special characters, take a look at [some examples](https://www.owasp.org/index.php/Password_special_characters).
+ ## Use
 
-## User Story
+ To use this application please visit https://cr31293.github.io/passwordgenerator/. The browser will then prompt you to answer 4 questions regarding your randomly generated password. Once completed the user will be returned a randomly generated password fitting the requested conditions. For reference the prompted questions are:
 
-```
-AS AN employee with access to sensitive data
-I WANT to randomly generate a password that meets certain criteria
-SO THAT I can create a strong password that provides greater security
-```
+* "Desired Password Length (min:8 Max:128)"
+    * Please input any value between the range of [8:128] to select how long your password will be.
+* "Desired letter case: 'upper', 'lower', 'both'."
+    * Please input one of 'upper', 'lower', or 'both' (without quotation markes) to select whether the app will include upper case and lower case letters when considering your password.
+* "Would you like numbers in your password (yes/no)?"
+    * Please input yes or no (lower case) to select whether the app will include numbers when considering your password.
+* "Would you like special characters in your password (yes/no)?"
+    * Please input yes or no (lower case) to select whether the app will include special characters (!@#$%^&*~) when considering your password.
 
-## Acceptance Criteria
 
-```
-GIVEN I need a new, secure password
-WHEN I click the button to generate a password
-THEN I am presented with a series of prompts for password criteria
-WHEN prompted for password criteria
-THEN I select which criteria to include in the password
-WHEN prompted for the length of the password
-THEN I choose a length of at least 8 characters and no more than 128 characters
-WHEN prompted for character types to include in the password
-THEN I choose lowercase, uppercase, numeric, and/or special characters
-WHEN I answer each prompt
-THEN my input should be validated and at least one character type should be selected
-WHEN all prompts are answered
-THEN a password is generated that matches the selected criteria
-WHEN the password is generated
-THEN the password is either displayed in an alert or written to the page
-```
-
-The following image demonstrates the application functionality:
-
-![password generator demo](./Assets/03-javascript-homework-demo.png)
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
