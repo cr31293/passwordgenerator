@@ -6,12 +6,44 @@ var possibilities = new Object();
 possibilities.numbers = "0123456789";
 possibilities.letters = "abcdefghijklmnopqrstuvwxyz";
 possibilities.characters = "!@#$%^&*~";
-console.log(possibilities);
+possibilities.length = "";
+possibilities.password = "";
 
+//Create function to set proper object properties
+function setpossibilities(lengthAnswer, caseAnswer, numAnswer, charAnswer) {
 
+  //.length
+  possibilities.length = lengthAnswer;
 
-//  Create possible prompt responses
-var response = ["yes", "no"];
+  //.letters
+  if (caseAnswer === "upper") {
+    possibilities.letters = possibilities.letters.toUpperCase();
+  }
+  else if (caseAnswer === "lower") {
+    possibilities.letters = possibilities.letters.toLowerCase();
+  }
+  else if (caseAnswer === "both") {
+    possibilities.letters = possibilities.letters.toUpperCase().concat(possibilities.letters.toLowerCase());
+  }
+  
+
+  //.numbers?
+  if (numAnswer === "yes") {
+    possibilities.numbers = possibilities.numbers;
+  }
+  else {
+    possibilities.numbers = "";
+  }
+
+  //.specialcharacters?
+  if (charAnswer === "yes") {
+    possibilities.characters = possibilities.characters;
+  }
+  else {
+    possibilities.characters = "";
+  }
+}
+
 
 // Create length prompt
 var lengthPrompt = prompt("Desired Password Length (min:8 Max:128)");
@@ -19,91 +51,94 @@ var lengthPrompt = prompt("Desired Password Length (min:8 Max:128)");
       var lengthAnswer = lengthPrompt;
     }
     else {
-      do {
-        var lengthPrompt = prompt("Password length must be bewteen 8 and 128");       //Our do/while works here
+        var lengthAnswer = prompt("Password length must be bewteen 8 and 128");       
       }
-      while (lengthAnswer < 8 || lengthAnswer > 128);
-    }
 
-console.log(lengthPrompt);
+console.log(lengthAnswer);
+
 
 // Create upper/lower prompt
+var caseAnswer;
 var casePrompt = prompt("Desired letter case: 'upper', 'lower', 'both'.");
 
-    if (casePrompt == "upper") {
-      var caseAnswer = casePrompt;
+    if (casePrompt === "upper") {
+       caseAnswer = casePrompt;
     }
-    else if (casePrompt == "lower") {
-      var caseAnswer = casePrompt;
+    else if (casePrompt === "lower") {
+       caseAnswer = casePrompt;
     }
-    else if (casePrompt == "both") {
-      var caseAnswer = casePrompt;
+    else if (casePrompt === "both") {
+       caseAnswer = casePrompt;
     }
-    else {
-      do {
-        var casePrompt = prompt("You must select either 'upper', 'lower' or 'both' casing types."); //Our do/while does not work here
-      }
-      while (caseAnswer != "upper" || caseAnswer != "lower" || caseAnswer != "both");               //something to do w/ the != syntax?
-    
-    }
+    else if (caseAnswer !== "upper" || caseAnswer !== "lower" || caseAnswer !== "both") {            
+         caseAnswer = prompt("You must select either 'upper', 'lower' or 'both' casing types."); 
 
-console.log(possibilities.letters);
-
-
-    // if (casePrompt == "upper" || casePrompt == "lower" || casePrompt == "both") {
-    //   var caseAnswer = casePrompt;
-    // }
-    // else {
-    //   while (caseAnswer != "upper" || caseAnswer != "lower" || caseAnswer != "both") {
-    //     var casePrompt = prompt("You must select either 'upper', 'lower' or 'both' casing types.")
-    //   }
-    // }
-   
+    }
+    console.log(caseAnswer);
 
 // Create numeric prompt
 var numPrompt = prompt("Would you like numbers in your password (yes/no)?");
 
-    if (numPrompt == "yes") {
+    if (numPrompt === "yes") {
       var numAnswer = numPrompt;  
     }
-    else if (numPrompt == "no") {
+    else if (numPrompt === "no") {
       var numAnswer = numPrompt;
     }
-    else {
-      while (numAnswer != "yes" || numAnswer != "no") {
-        var numPrompt = prompt("Please answer yes or no to include numbers in your password.");
+    else if (numAnswer !== "yes" || numAnswer !== "no") {
+        var numAnswer = prompt("Please answer yes or no to include numbers in your password.");
       }
+
+
+    console.log(numAnswer);
+
+
+// Create character prompt
+var charPrompt = prompt("Would you like special characters in your password (yes/no)?");
+
+    if (charPrompt == "yes") {
+      var charAnswer = charPrompt;
     }
+    else if (charPrompt == "no") {
+      var charAnswer = charPrompt;
+    }
+    else if (charAnswer != "yes" || charAnswer != "no") {
+        var charPrompt = prompt("Please answer yer or no to include special characters in your password.");
+      }
+  
+
+    console.log(charAnswer);
+
+setpossibilities(lengthAnswer, caseAnswer, numAnswer, charAnswer);
+console.log(possibilities);
 
 
+function generatePassword(possibilities) {
+  possibilities.bigstring = possibilities.numbers.concat(possibilities.letters.concat(possibilities.characters));
+  possibilities.bigstringshuffled = possibilities.bigstring.split('').sort(function() {
+    return 0.50-Math.random()
+  }).join('');
 
-//Create function to handle casing
-function casing(x) {
-  if (x == "upper") {
-    possibilities.letters = possibilities.letters.toUpperCase();
-  }
-  else if (x == "lower") {
-    possibilities.letters = possibilities.letters.toLowerCase();
-  }
-  else if (x == "both") {
-    possibilities.letters = possibilities.letters.toUpperCase().concat(possibilities.letters.toLowerCase());
-  }
+possibilities.password = possibilities.bigstringshuffled.slice(0,lengthAnswer);
+
+return(possibilities.password);
 }
 
-casing(lengthAnswer)
 
 
+generatePassword(possibilities);
 
-
-
+///////////////////////
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = generatePassword(possibilities);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
 }
+
+writePassword(possibilities);
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
